@@ -1,1 +1,55 @@
-// app global css in SCSS form
+// // app global css in SCSS form
+@import "~normalize.css";
+@import "./mixins/font-face";
+@import "./mixins/media";
+@include font-face("Avenir", "AvenirNextCyr-Bold/AvenirNextCyr-Bold", 800);
+@include font-face("Avenir", "AvenirNextCyr-Medium/AvenirNextCyr-Medium", 600);
+@include font-face("Avenir", "AvenirNextCyr-Light/AvenirNextCyr-Light", 400);
+
+.main_back {
+  width: 115%;
+  min-height: 100vh;
+  position: absolute;
+  top: 0px;
+  left: 0;
+  opacity: 0.2;
+}
+@include media(340) {
+  .main_back {
+    width: 180%;
+  }
+}
+body {
+  font-family: "Avenir";
+  text-align: center;
+  font-size: 18px;
+
+  color: #434343;
+}
+.p-content {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+h2 {
+  font-size: 26px;
+  line-height: 32px;
+  font-weight: 600;
+  margin: 0;
+  // font-family: "AvenirBold";
+}
+
+.phone {
+  text-decoration: none;
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  text-transform: uppercase;
+  display: inline-block;
+  background: #434343;
+  border-radius: 50px;
+
+  padding: 3px 16px 3px;
+}
