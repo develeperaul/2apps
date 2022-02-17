@@ -30,7 +30,17 @@ body {
   padding-left: 15px;
   padding-right: 15px;
 }
+.pt {
+  padding-top: 15px;
+}
+.pb {
+  padding-bottom: 15px;
+}
 
+a {
+  text-decoration: none;
+  color: $primary;
+}
 h2 {
   font-size: 26px;
   line-height: 32px;
@@ -38,7 +48,13 @@ h2 {
   margin: 0;
   // font-family: "AvenirBold";
 }
-
+h3 {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 600;
+  margin: 0;
+  // font-family: "AvenirBold";
+}
 .phone {
   text-decoration: none;
   font-weight: 600;
@@ -52,4 +68,12 @@ h2 {
   border-radius: 50px;
 
   padding: 3px 16px 3px;
+}
+
+.nav {
+  font-weight: 600;
+  margin-top: 20px;
+}
+.nav.router-link-active {
+  color: grey;
 }

@@ -1,51 +1,27 @@
 <template>
-  <q-item
-    clickable
-    tag="a"
-    target="_blank"
-    :href="link"
-  >
-    <q-item-section
-      v-if="icon"
-      avatar
-    >
-      <q-icon :name="icon" />
-    </q-item-section>
-
-    <q-item-section>
-      <q-item-label>{{ title }}</q-item-label>
-      <q-item-label caption>
-        {{ caption }}
-      </q-item-label>
-    </q-item-section>
-  </q-item>
+  <router-link :to="link" class="nav">
+    <!-- {{ title }} -->
+    <span>
+      {{ title }}
+    </span>
+  </router-link>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: 'EssentialLink',
+  name: "EssentialLink",
   props: {
     title: {
       type: String,
-      required: true
-    },
-
-    caption: {
-      type: String,
-      default: ''
+      required: true,
     },
 
     link: {
-      type: String,
-      default: '#'
+      type: Object,
+      required: true,
     },
-
-    icon: {
-      type: String,
-      default: ''
-    }
-  }
-})
+  },
+});
 </script>

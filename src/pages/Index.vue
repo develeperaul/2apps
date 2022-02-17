@@ -22,15 +22,20 @@
         делаем под IOS и Android
       </p>
     </div>
-    <button class="but1_1 but1_2">Рассчитать стоимость</button>
+    <BaseButton
+      text="Расчитать стоимость"
+      @click="() => $router.push({ name: 'calc' })"
+    />
   </q-page>
 </template>
 
 <script>
+import BaseButton from "src/components/BaseButton.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "PageIndex",
+  components: { BaseButton },
 });
 </script>
 <style lang="scss" scoped>
