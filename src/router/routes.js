@@ -9,7 +9,7 @@ const routes = [
         name: "calc",
         component: () => import("pages/Calc.vue"),
       },
-      { path: "how", name: "how", component: () => import("pages/Index.vue") },
+      { path: "how", name: "how", component: () => import("pages/How.vue") },
       {
         path: "contacts",
         name: "contacts",
@@ -18,7 +18,7 @@ const routes = [
       {
         path: "work",
         name: "work",
-        component: () => import("pages/Index.vue"),
+        component: () => import("pages/Works.vue"),
       },
     ],
   },

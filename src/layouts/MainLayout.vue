@@ -16,7 +16,12 @@
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list class="drawer__list">
-        <img src="logo.svg" alt="" width="70" />
+        <img
+          src="logo.svg"
+          alt=""
+          @click="() => $router.push({ name: 'home' })"
+          width="70"
+        />
         <EssentialLink
           v-for="(link, index) in essentialLinks"
           :key="index"

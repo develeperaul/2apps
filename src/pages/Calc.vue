@@ -88,7 +88,7 @@
               <p style="margin: 40px auto">
                 Впишите ваши ФИО и телефон, мы свяжемся с вами
               </p>
-              <form action="#" method="POST" id="feed_form">
+              <form @submit.prevent="submit" id="feed_form">
                 <div class="offset">
                   <input
                     class="input center"
@@ -143,6 +143,7 @@
 import { ref, watch, computed, onMounted } from "vue";
 import gsap from "gsap";
 import data from "src/data.json";
+// import nodemailer from "nodemailer";
 export default {
   // name: 'PageName',
   setup(props) {
@@ -221,6 +222,32 @@ export default {
         show.value = true;
       }, 100);
     };
+    const submit = async () => {
+      // mail("Рассчитать стоимость разработки").catch(console.error);
+      // console.log(require("nodemailer"));
+      // const nodemailer = require("nodemailer");
+    };
+    // const mail = async function (textMail) {
+    //   let transporter = nodemailer.createTransport({
+    //     host: "smtp.yandex.ru",
+    //     port: 465,
+    //     secure: true, // true for 465, false for other ports
+    //     auth: {
+    //       user: "calculate2apps@yandex.ru", // generated ethereal user
+    //       pass: "jrcocafmqdhmandt", // generated ethereal password
+    //     },
+    //   });
+
+    //   // send mail with defined transport object
+    //   let info = await transporter.sendMail({
+    //     from: "calculate2apps@yandex.ru", // sender address
+    //     to: "info@2apps.ru", // list of receivers
+    //     subject: "Бот 2apps", // Subject line
+    //     text: `${textMail}`, // plain text body
+    //   });
+
+    //   console.log("Message sent: %s", info.messageId);
+    // };
 
     const contentHeight = computed(
       () => `${pageHeight.value - bottomHeight.value - progressHeight.value}px`
@@ -304,6 +331,7 @@ export default {
       tweenedNumber,
       animatedNumber,
       transitionName,
+      submit,
     };
     // return {
     //   data: data,
