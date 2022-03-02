@@ -6,9 +6,24 @@
         style="opacity: 0"
         :style="{ opacity: slideLength ? 1 : 0 }"
       >
-        <object type="image/svg+xml" data="2a.svg" width="96px">
-          Your browser does not support SVG
-        </object>
+          <svg  width="90" viewBox="0 0 167 197" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
+            <title>2a</title>
+            <desc>Created with Sketch.</desc>
+              <defs>
+                <!-- <style type="text/css"> -->
+                  <!-- font-family: Avenir; -->
+                <!-- </style> -->
+            </defs>
+            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                <text id="2" sketch:type="MSTextLayer" font-family="Avenir" font-size="144" font-weight="bold" fill="#CA083B">
+                    <tspan x="0" y="144">2</tspan>
+                </text>
+                <rect id="Rectangle-1" stroke="#FFFFFF" fill="#FFFFFF" sketch:type="MSShapeGroup" transform="translate(61.194817, 131.787675) rotate(23.000000) translate(-61.194817, -131.787675) " x="59.3964818" y="115.287675" width="3.59666945" height="33"></rect>
+                <path d="M139.640004,143.979998 L90.9555669,143.979998 L80.96,169 L47.48,169 L100.94,41.56 L130.82,41.56 C130.82,41.56 149.739881,96.0099077 159.199822,123.234862 C161.602614,130.149907 166.4082,143.979998 166.4082,143.979998 L139.640004,143.979998 Z M115.34,75.58 L99.14,124.56 L131.18,124.56 L115.34,75.58 Z" id="A" fill="#CA083B" sketch:type="MSShapeGroup"></path>
+                <rect id="Rectangle-2" stroke="#FFFFFF" fill="#FFFFFF" sketch:type="MSShapeGroup" transform="translate(95.934210, 134.914674) rotate(23.000000) translate(-95.934210, -134.914674) " x="94.9198053" y="121.414674" width="3.56484435" height="27"></rect>
+            </g>
+        </svg>
         <div class="progress" :style="{ width: '100%' }">
           <div
             class="progress-left"
@@ -53,7 +68,7 @@
                           v-if="current.multicheckbox"
                           type="checkbox"
                           :id="option.title"
-                          :value="{ [currentSlide]: option }"
+                          :value="{ [currentSlide]: {name: current.title,...option} }"
                           v-model="checkedNames"
                           class="option-input checkbox"
                         />
@@ -64,6 +79,7 @@
                           :id="option.title"
                           :value="{
                             [currentSlide]: {
+                              name: current.title,
                               multicheckbox: current.multicheckbox,
                               ...option,
                             },
@@ -90,23 +106,22 @@
               </p>
               <form @submit.prevent="submit" id="feed_form">
                 <div class="offset">
-                  <input
-                    class="input center"
-                    name="fio"
-                    placeholder="ФИО"
-                    type="text"
-                    required="true"
-                  />
+                  
+                  <q-input ref="fioRef" dense outlined v-model="fio" placeholder="ФИО" :rules="[val => (val && val.length > 0) ||'это поле обязательно для заполнения' ]"/>
                 </div>
                 <div class="offset">
-                  <input
+                  <q-input ref="phoneRef" dense outlined v-model="phone" placeholder="Номер телефона" mask="+7 (###)-###-##-##" :rules="[val => (val && val.length == 18) ||'это поле обязательно для заполнения' ]" />
+                  <!-- {{phone!==null ?phone.length: 0}} -->
+                  <!-- <q-input
                     class="input center"
-                    id="phone"
+                    
                     name="phone"
                     placeholder="Телефон"
-                    type="text"
-                    required="true"
-                  />
+                    type="tel"
+                    pattern="2-[0-9]{3}-[0-9]{3}"
+                    
+                    v-model="phone"
+                  /> -->
                 </div>
                 <button type="submit" class="but1_1 but1_2">
                   Получить консультацию
@@ -140,13 +155,20 @@
 </template>
 
 <script>
+import axios from "axios";
 import { ref, watch, computed, onMounted } from "vue";
+import {useRouter} from "vue-router"
 import gsap from "gsap";
 import data from "src/data.json";
 // import nodemailer from "nodemailer";
 export default {
   // name: 'PageName',
   setup(props) {
+    const $router = useRouter();
+    const fioRef= ref(null);
+    const fio = ref(null);
+    const phoneRef= ref(null);
+    const phone = ref(null)
     const jsonData = data.data;
     const json = jsonData;
     const slideLength = json.length;
@@ -163,7 +185,33 @@ export default {
       return json[currentSlide.value];
     });
     const transitionName = ref("fade");
+    const createMessageMail = computed(()=>{
+      let arr = [];
+      let count = 0
+      let str = ""
+      checkedNames.value.forEach((item,index) => {
+        if(index==0){
+          arr.push({name:item[Object.keys(item)[0]].name,options:[item[Object.keys(item)[0]].title]})
+          count = count + 1
+        }else{
+          if(index!==0 && arr[count-1].name == item[Object.keys(item)[0]].name)arr[count-1].options.push(item[Object.keys(item)[0]].title)
+          else {
+            arr.push({name:item[Object.keys(item)[0]].name,options:[item[Object.keys(item)[0]].title]})
+            count = count + 1
+          }
+        }
+        
+        
+      })
 
+      arr.forEach((item,index)=>{
+        // item.name
+        str = str + `${item.name} : \n\t ${item.options.join('\n\t ')}\n`
+      })
+      
+      return str
+
+    })
     const progressHeight = ref(0);
     const pageHeight = ref(0);
     const bottomHeight = ref(0);
@@ -183,12 +231,14 @@ export default {
           Object.keys(radioNames.value)[0]
         )
       ) {
+        
         checkedNames.value.splice(
           checkedNames.value.length - 1,
           1,
           radioNames.value
         );
       } else {
+        
         checkedNames.value.push(radioNames.value);
       }
     };
@@ -226,6 +276,23 @@ export default {
       // mail("Рассчитать стоимость разработки").catch(console.error);
       // console.log(require("nodemailer"));
       // const nodemailer = require("nodemailer");
+      if(fioRef.value.validate() && phoneRef.value.validate()){
+        let formData = new FormData();
+        formData.append("options", createMessageMail.value);
+        formData.append("fio", fio.value);
+        formData.append("phone", phone.value);
+        await axios
+          .post("http://raul.2apps.ru/mail/index.php", formData, )
+          .then(function () {
+            console.log("SUCCESS!!");
+          })
+          .catch(function (e) {
+            console.log(e);
+            console.log("FAILURE!!");
+          });
+          $router.push({name: "home"})
+      }
+      
     };
     // const mail = async function (textMail) {
     //   let transporter = nodemailer.createTransport({
@@ -259,6 +326,7 @@ export default {
 
     const count = computed(() => {
       let array = [];
+      
       checkedNames.value.forEach((item, index) => {
         let count = 0;
         if (
@@ -315,6 +383,11 @@ export default {
       gsap.to(tweenedNumber, { duration: 1, value: newValue.toFixed(0) });
     });
     return {
+      fioRef,
+      fio,
+      phoneRef,
+      phone,
+      createMessageMail,
       currentSlide,
       slideLength,
       json,
@@ -339,7 +412,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .content-calc {
   position: absolute;
   max-width: 500px;
@@ -369,6 +442,7 @@ export default {
 
 .offset {
   margin-bottom: 15px;
+  padding: 0 30px;
 }
 
 .fade-enter-active {
@@ -479,7 +553,7 @@ export default {
 .amount {
   font-weight: 550;
   font-size: 24px;
-  line-height: 32px;
+  line-height: 26px;
 }
 .amount,
 .title {
@@ -487,7 +561,7 @@ export default {
 }
 .title {
   font-size: 18px;
-  line-height: 1.8em;
+  line-height: 22px;
   font-weight: 550;
   padding: 0 0 15px 0;
 }
@@ -500,13 +574,13 @@ export default {
 .description {
   text-align: center;
   font-size: 16px;
-  line-height: 28px;
+  line-height: 20px;
   font-weight: 400;
 }
 
 .prev {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  /* margin-top: 10px; */
+  /* margin-bottom: 10px; */
 }
 
 .prev {

@@ -152,7 +152,7 @@ export default {
   }
   &__links {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
 
     padding-top: 10px;
     padding-bottom: 50px;
