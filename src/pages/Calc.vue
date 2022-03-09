@@ -781,6 +781,8 @@ export default {
 .calc__button {
   padding: 10px 0;
   position: absolute;
+  right: 0;
+  left: 0;
   bottom: 0;
 }
 </style>

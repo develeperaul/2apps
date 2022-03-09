@@ -121,11 +121,11 @@ export default {
   // name: 'PageName',
   setup() {
     const goMarket = function (link) {
-      // cordova.InAppBrowser.open(
-      //   link,
-      //   '_system',
-      //   'location=yes'
-      // );
+      cordova.InAppBrowser.open(
+        link,
+        '_system',
+        'location=yes'
+      );
     };
     return {
       goMarket,

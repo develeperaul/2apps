@@ -4,15 +4,15 @@
     <title>2a</title>
     <desc>Created with Sketch.</desc>
        <defs>
-        <!-- <style type="text/css">
+        <style type="text/css">
             @font-face {
                 font-family: Avenir Next;
                 src: url(/fonts/AvenirNextCyr-Bold.otf);
             }
-        </style> -->
+        </style>
     </defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <text id="2" sketch:type="MSTextLayer" font-family="Avenir" font-size="144" font-weight="bold" fill="#CA083B">
+        <text id="2" sketch:type="MSTextLayer" font-family="Avenir Next" font-size="144" font-weight="bold" fill="#CA083B">
             <tspan x="0" y="144">2</tspan>
         </text>
         <rect id="Rectangle-1" stroke="#FFFFFF" fill="#FFFFFF" sketch:type="MSShapeGroup" transform="translate(61.194817, 131.787675) rotate(23.000000) translate(-61.194817, -131.787675) " x="59.3964818" y="115.287675" width="3.59666945" height="33"></rect>
